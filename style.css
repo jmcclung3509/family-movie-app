@@ -1,0 +1,99 @@
+body {
+  background: no-repeat center url("./images/charlesdeluvio-PvAAYZx-yf8-unsplash.jpg");
+  font-family: "Quicksand", sans-serif;
+}
+
+body .overlay {
+  background-color: rgba(245, 245, 249, 0.894);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body .overlay .container {
+  margin-top: 50px;
+}
+
+body .overlay .container h1 {
+  text-align: center;
+  font-family: "Limelight", cursive;
+  margin-bottom: 40px;
+}
+
+body .overlay .container .row-1 {
+  margin-bottom: 50px;
+}
+
+body .overlay .container .row-1 .name,
+body .overlay .container .row-1 .movie-selection {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-family: "Quicksand", sans-serif;
+}
+
+body .overlay .container .row-1 .form-select {
+  color: -internal-light-dark(black, white);
+  font-family: "Quicksand", sans-serif;
+  padding: 10px 36px 10px 10px;
+  outline: none;
+  border: none;
+}
+
+body .overlay .container .row-1 label {
+  font-family: "Quicksand", sans-serif;
+}
+
+body .overlay .container .row-1 .btn-info {
+  font-size: 1.2rem;
+}
+
+body .overlay .container .row-2 h3 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+body .overlay .container .list-container {
+  padding-left: 0;
+}
+
+body .overlay .container .list-container li {
+  text-align: center;
+}
+
+body .overlay .container .list-container li .starContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-self: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 5px;
+}
+
+body .overlay .container .list-container li .starContainer .star-check {
+  visibility: hidden;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+body .overlay .container .list-container li .starContainer .star-check:before {
+  content: "\2606";
+  position: absolute;
+  visibility: visible;
+  color: black;
+}
+
+body .overlay .container .list-container li .starContainer .star-check:checked:before {
+  content: "\2605";
+  position: absolute;
+  color: #d10aba;
+}
+/*# sourceMappingURL=style.css.map */

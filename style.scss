@@ -1,0 +1,118 @@
+$font-family-header: 'Limelight', cursive;
+
+$font-family-main: 'Quicksand', sans-serif;
+$input-text-color: -internal-light-dark(black, white);
+
+body {
+    background: no-repeat center url("./images/charlesdeluvio-PvAAYZx-yf8-unsplash.jpg");
+    font-family: $font-family-main;
+
+    .overlay {
+        background-color: rgba(245, 245, 249, 0.894);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100%;
+
+
+        .container {
+            margin-top: 50px;
+
+            h1 {
+                text-align: center;
+                font-family: $font-family-header;
+                margin-bottom: 40px;
+
+            }
+
+            .row-1 {
+                margin-bottom: 50px;
+
+                .name,
+                .movie-selection {
+                    width: 100%;
+                    padding: 10px;
+                    border: none;
+                    outline: none;
+                    font-family: $font-family-main;
+                }
+
+                .form-select {
+                    color: $input-text-color;
+                    font-family: $font-family-main;
+                    padding: 10px 36px 10px 10px;
+                    outline: none;
+                    border: none;
+                }
+
+                label {
+                    font-family: $font-family-main;
+
+                }
+
+                .btn-info {
+                    font-size: 1.2rem;
+
+
+                }
+
+
+
+            }
+
+            .row-2 {
+                h3 {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    margin-bottom: 40px;
+                }
+            }
+
+            .list-container {
+                padding-left: 0;
+
+                li {
+                    text-align: center;
+
+                    .starContainer {
+                        display: flex;
+                        justify-self: center;
+                        align-items: flex-start;
+                        gap: 5px;
+
+
+                        .star-check {
+                            visibility: hidden;
+                            font-size: 15px;
+                            cursor: pointer;
+                            padding: 5px;
+                            // margin: 5px;
+
+                            &:before {
+                                content: "\2606";
+                                position: absolute;
+                                visibility: visible;
+                                color: black
+                            }
+
+
+                            &:checked:before {
+                                content: "\2605";
+                                position: absolute;
+                                color: rgb(209, 10, 186);
+
+                            }
+
+
+                        }
+
+
+                    }
+                }
+
+            }
+        }
+    }
+}
