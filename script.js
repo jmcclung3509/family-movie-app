@@ -1,12 +1,13 @@
 const listContainer = document.querySelector(".list-container")
 const selectedPersonContainer = document.querySelector(".form-select")
 const movieContainer = document.querySelector(".movie-selection")
-// const ratingContainer = document.querySelector(".rating-container")
-let numCount = 0;
+// const ratingContailet numCount = 0;
 let date
 let starClicked = 0
 let rating
 let starContainer
+let itemsArray = []
+
 
 class ListItem {
     newItem = ""
@@ -20,36 +21,45 @@ class ListItem {
 
         this.addToContainer();
 
+
         if (saved == false) {
             this.saveItem()
         }
     }
 
+
     saveItem() {
-        let prevData = localStorage.getItem("data")
-        prevData = prevData ? prevData + " |@! " + this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating : this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating
-        localStorage.setItem("data", prevData)
-        console.log(prevData)
+
+        // let prevData = localStorage.getItem("data")
+        // prevData = JSON.parse(prevData)
+        // // prevData[person] = this.person
+        // // prev[data\]
+        // // prevData = prevData ? [...prevData, this.date, this.person, this.movie, this.rating] : [this.date, this.person, this.movie, this.rating]
+        // prevData = prevData ? prevData + " |@! " + this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating : this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating
+        // localStorage.setItem("data", JSON.stringify(prevData))
+
+        // console.log(prevData)
+
 
         // let prevData = localStorage.getItem("data")
         // prevData = prevData ? prevData + " |@! " + this.movie : this.movie
         // localStorage.setItem("data", prevData)
 
-        // let prevDate = localStorage.getItem("date")
-        // prevDate = prevDate ? prevDate + " |@! " + this.date : this.date
-        // localStorage.setItem("date", prevDate)
+        let prevDate = localStorage.getItem("date")
+        prevDate = prevDate ? prevDate + " |@! " + this.date : this.date
+        localStorage.setItem("date", prevDate)
 
-        // let prevPerson = localStorage.getItem("person")
-        // prevPerson = prevPerson ? prevPerson + " |@! " + this.person : this.person
-        // localStorage.setItem("person", prevPerson)
+        let prevPerson = localStorage.getItem("person")
+        prevPerson = prevPerson ? prevPerson + " |@! " + this.person : this.person
+        localStorage.setItem("person", prevPerson)
 
-        // let prevMovie = localStorage.getItem("movie")
-        // prevMovie = prevMovie ? prevMovie + " |@! " + this.movie : this.movie
-        // localStorage.setItem("movie", prevMovie)
+        let prevMovie = localStorage.getItem("movie")
+        prevMovie = prevMovie ? prevMovie + " |@! " + this.movie : this.movie
+        localStorage.setItem("movie", prevMovie)
 
-        // let prevRating = localStorage.getItem("rating")
-        // prevRating = prevRating ? prevRating + " |@! " + this.rating : this.rating
-        // localStorage.setItem("rating", prevRating)
+        let prevRating = localStorage.getItem("rating")
+        prevRating = prevRating ? prevRating + " |@! " + this.rating : this.rating
+        localStorage.setItem("rating", prevRating)
 
     }
 
@@ -253,46 +263,55 @@ function add() {
     clearInput()
 
 
+
 }
 function clearInput() {
     movieContainer.value = ""
     starClicked = 0
 }
+
+
 function startApp() {
 
-    let storedData = localStorage.getItem("data")
-    console.log(storedData)
-    storedData = storedData.split(" |@! ")
-    console.log(storedData)
-    storedData.forEach((data, index) => {
-        console.log(data, index)
+    let date
+    let person
+    let movie
+    let rating
 
+
+    // let storedData = localStorage.getItem("data")
+
+    // storedData = storedData.split(" |@! ")
+    // storedData = JSON.parse(storedData)
+    // console.log(storedData)
+    // storedData.forEach((data) => {
+
+
+    // })
+
+
+
+    let storedDate = (localStorage.getItem("date")).split(" |@! ")
+    storedDate.map((date) => {
+        date = date
+        console.log(date)
     })
-
-
-
-    // let storedDate = (localStorage.getItem("date")).split(" |@! ")
-
-
-    // storedDate.map((date) => {
-    //     date = date
-    //     console.log(date)
-    // })
-    // let storedPerson = (localStorage.getItem("person")).split(" |@! ")
-    // storedPerson.map(person => {
-    //     console.log(person)
-    //     person = person
-    // })
-    // let storedMovie = (localStorage.getItem("movie")).split(" |@! ")
-    // storedMovie.map(movie => {
-    //     console.log(movie)
-    //     movie = movie
-    // })
-    // let storedRating = (localStorage.getItem("rating")).split(" |@! ")
-    // storedRating.map(rating => {
-    //     console.log(rating)
-    //     rating = rating
-    // })
+    let storedPerson = (localStorage.getItem("person")).split(" |@! ")
+    storedPerson.map(person => {
+        console.log(person)
+        person = person
+    })
+    let storedMovie = (localStorage.getItem("movie")).split(" |@! ")
+    storedMovie.map(movie => {
+        console.log(movie)
+        movie = movie
+    })
+    let storedRating = (localStorage.getItem("rating")).split(" |@! ")
+    storedRating.map(rating => {
+        console.log(rating)
+        rating = rating
+    })
+    new ListItem(listContainer, date, person, movie, rating, true)
 
 
 }
