@@ -1,7 +1,7 @@
 const listContainer = document.querySelector(".list-container")
 const selectedPersonContainer = document.querySelector(".form-select")
 const movieContainer = document.querySelector(".movie-selection")
-// const ratingContailet numCount = 0;
+
 let date
 let starClicked = 0
 let rating
@@ -34,10 +34,12 @@ class ListItem {
         prevData = JSON.parse(prevData)
 
         prevData = prevData ? [...prevData, this.date, this.person, this.movie, this.rating] : [this.date, this.person, this.movie, this.rating]
-        // prevData = prevData ? prevData + " |@! " + this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating : this.date + " |@! " + this.person + " |@! " + this.movie + " |@! " + this.rating
+
         localStorage.setItem("data", JSON.stringify(prevData))
 
         console.log(prevData)
+
+        //TRIED SAVING THE DIFFERENT CLASS PROPERTIES SEPERATLY //
 
 
         // let prevData = localStorage.getItem("data")
@@ -89,10 +91,6 @@ class ListItem {
         movieElem.classList.add("col")
         this.newItem.appendChild(movieElem)
 
-        // let ratingValue = document.createElement("div")
-        // ratingValue.innerHTML = `${this.rating} /5`
-        // ratingValue.classList.add("col")
-        // this.newItem.appendChild(ratingValue)
 
         starContainer = document.createElement("div")
         starContainer.classList.add("col")
@@ -136,11 +134,10 @@ class ListItem {
                 console.log("clicked")
                 star1.checked = false
                 starClicked--
-                // rating.innerText = "0/5"
+
             } else {
                 star1.checked = true;
                 starClicked++
-                // rating.innerHTML = "1/1"
             }
             getRating()
 
@@ -241,7 +238,7 @@ class ListItem {
         starContainer.appendChild(rating)
         rating.classList.add("rating")
 
-        // rating.innerHTML = `${starClicked}/5`
+
 
 
         function getRating() {
@@ -282,6 +279,7 @@ function startApp() {
     console.log(storedData)
     storedData.map((data) => {
         console.log(data)
+        //STUCK HERE - I CAN SEE THE DATA I WANT IN LOCAL STORAGE, JUST DON"T KNOW HOW TO ADD IT TO THE new LISTITEM)
 
         new ListItem(listContainer, true)
     })
