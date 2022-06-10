@@ -66,34 +66,59 @@ body .overlay .container .list-container li {
   text-align: center;
 }
 
-body .overlay .container .list-container li .starContainer {
+body .overlay .container .btn-container {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+body .overlay .container .btn-container .suggestions {
+  margin-left: auto;
+  margin-right: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+body .overlay .container .movie-container {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  justify-self: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  gap: 5px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 
-body .overlay .container .list-container li .starContainer .star-check {
-  visibility: hidden;
-  font-size: 15px;
-  cursor: pointer;
-  padding: 5px;
+body .overlay .container .movie-container .newMovie {
+  width: 48%;
 }
 
-body .overlay .container .list-container li .starContainer .star-check:before {
-  content: "\2606";
-  position: absolute;
-  visibility: visible;
-  color: black;
+body .overlay .container .movie-container .newMovie .imgDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-body .overlay .container .list-container li .starContainer .star-check:checked:before {
-  content: "\2605";
-  position: absolute;
-  color: #d10aba;
+body .overlay .container .movie-container .newMovie .imgDiv img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+body .overlay .container .movie-container .newMovie h3 {
+  text-align: center;
+}
+
+body .overlay .container .movie-container .newMovie .releaseDate {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

@@ -76,42 +76,87 @@ body {
                 li {
                     text-align: center;
 
-                    .starContainer {
-                        display: flex;
-                        justify-self: center;
-                        align-items: flex-start;
-                        gap: 5px;
+                    // .starContainer {
+                    //     display: flex;
+                    //     justify-self: center;
+                    //     align-items: flex-start;
+                    //     gap: 5px;
 
 
-                        .star-check {
-                            visibility: hidden;
-                            font-size: 15px;
-                            cursor: pointer;
-                            padding: 5px;
-                            // margin: 5px;
+                    //     .star-check {
+                    //         visibility: hidden;
+                    //         font-size: 15px;
+                    //         cursor: pointer;
+                    //         padding: 5px;
+                    //         // margin: 5px;
 
-                            &:before {
-                                content: "\2606";
-                                position: absolute;
-                                visibility: visible;
-                                color: black
-                            }
-
-
-                            &:checked:before {
-                                content: "\2605";
-                                position: absolute;
-                                color: rgb(209, 10, 186);
-
-                            }
+                    //         &:before {
+                    //             content: "\2606";
+                    //             position: absolute;
+                    //             visibility: visible;
+                    //             color: black
+                    //         }
 
 
-                        }
+                    //         &:checked:before {
+                    //             content: "\2605";
+                    //             position: absolute;
+                    //             color: rgb(209, 10, 186);
+
+                    //         }
 
 
-                    }
+                    //     }
+
+
+                    // }
                 }
 
+
+            }
+
+            .btn-container {
+                width: 100%;
+                margin-bottom: 40px;
+
+                .suggestions {
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: fit-content;
+                    // width: 100%;
+                }
+            }
+
+            .movie-container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                flex-flow: row wrap;
+
+                .newMovie {
+                    width: 48%;
+
+                    .imgDiv {
+                        display: flex;
+                        justify-content: center;
+
+
+
+                        img {
+                            width: 50%;
+                            margin: 0 auto;
+                        }
+                    }
+
+                    h3 {
+                        text-align: center;
+                    }
+
+                    .releaseDate {
+                        text-align: center;
+                    }
+                }
             }
         }
     }

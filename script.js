@@ -1,14 +1,15 @@
 const listContainer = document.querySelector(".list-container")
 const selectedPersonContainer = document.querySelector(".form-select")
 const movieContainer = document.querySelector(".movie-selection")
+const ratingContainer = document.getElementById("rangeOutputId")
+const movieListContainer = document.querySelector(".movie-container")
 
 let date
 let starClicked = 0
 let rating
 let starContainer
 let itemsArray = []
-
-
+let newItemArray = []
 class ListItem {
     newItem = ""
     constructor(container, date, person, movie, rating, saved) {
@@ -30,38 +31,27 @@ class ListItem {
 
     saveItem() {
 
-        let prevData = localStorage.getItem("data")
-        prevData = JSON.parse(prevData)
-
-        prevData = prevData ? [...prevData, this.date, this.person, this.movie, this.rating] : [this.date, this.person, this.movie, this.rating]
-
-        localStorage.setItem("data", JSON.stringify(prevData))
-
-        console.log(prevData)
-
-        //TRIED SAVING THE DIFFERENT CLASS PROPERTIES SEPERATLY //
 
 
-        // let prevData = localStorage.getItem("data")
-        // prevData = prevData ? prevData + " |@! " + this.movie : this.movie
-        // localStorage.setItem("data", prevData)
+        let prevDate = localStorage.getItem("date")
+        prevDate = prevDate ? prevDate + " |@! " + this.date : this.date
+        localStorage.setItem("date", prevDate)
+        console.log(prevDate)
 
-        // let prevDate = JSON.parse(localStorage.getItem("date"))
-        // prevDate = prevDate ? prevDate + " |@! " + this.date : this.date
-        // localStorage.setItem("date", JSON.stringify(prevDate))
-        // console.log(date)
+        let prevPerson = localStorage.getItem("person")
+        prevPerson = prevPerson ? prevPerson + " |@! " + this.person : this.person
+        localStorage.setItem("person", prevPerson)
+        console.log(prevPerson)
 
-        // let prevPerson = localStorage.getItem("person")
-        // prevPerson = prevPerson ? prevPerson + " |@! " + this.person : this.person
-        // localStorage.setItem("person", prevPerson)
+        let prevMovie = localStorage.getItem("movie")
+        prevMovie = prevMovie ? prevMovie + " |@! " + this.movie : this.movie
+        localStorage.setItem("movie", prevMovie)
+        console.log(prevMovie)
 
-        // let prevMovie = localStorage.getItem("movie")
-        // prevMovie = prevMovie ? prevMovie + " |@! " + this.movie : this.movie
-        // localStorage.setItem("movie", prevMovie)
-
-        // let prevRating = localStorage.getItem("rating")
-        // prevRating = prevRating ? prevRating + " |@! " + this.rating : this.rating
-        // localStorage.setItem("rating", prevRating)
+        let prevRating = localStorage.getItem("rating")
+        prevRating = prevRating ? prevRating + " |@! " + this.rating : this.rating
+        localStorage.setItem("rating", prevRating)
+        console.log(prevRating)
 
     }
 
@@ -91,206 +81,203 @@ class ListItem {
         movieElem.classList.add("col")
         this.newItem.appendChild(movieElem)
 
-
-        starContainer = document.createElement("div")
-        starContainer.classList.add("col")
-        starContainer.classList.add("starContainer")
-        this.newItem.appendChild(starContainer)
-
+        let ratingElem = document.createElement("p")
+        ratingElem.innerHTML = `${this.rating}`
+        ratingElem.classList.add('col')
+        this.newItem.appendChild(ratingElem)
 
 
+        // let deleteBtn = document.createElement("button")
+        // deleteBtn.innerHTML = "X"
+        // deleteBtn.onclick = () => {
+        //     this.deleteItem()
+        // }
+        // deleteBtn.classList.add("col-1")
+        // this.newItem.appendChild(deleteBtn)
 
-        let star1 = document.createElement("input")
-        star1.type = "checkbox"
-        star1.setAttribute("class", "star-check star1")
-        starContainer.appendChild(star1)
-
-        let star2 = document.createElement("input")
-        star2.type = "checkbox"
-        starContainer.appendChild(star2)
-        star2.setAttribute("class", "star-check star2")
-
-
-
-        let star3 = document.createElement("input")
-        star3.type = "checkbox"
-        starContainer.appendChild(star3)
-        star3.classList.add("star-check")
-
-        let star4 = document.createElement("input")
-        star4.type = "checkbox"
-        starContainer.appendChild(star4)
-        star4.classList.add("star-check")
-
-        let star5 = document.createElement("input")
-        star5.type = "checkbox"
-        starContainer.appendChild(star5)
-        star5.classList.add("star-check")
-
-        // this.rating = star1 + star2 + star3 + star4 + star5
-
-        star1.onclick = () => {
-            if (!star1.checked) {
-                console.log("clicked")
-                star1.checked = false
-                starClicked--
-
-            } else {
-                star1.checked = true;
-                starClicked++
-            }
-            getRating()
-
-        }
-
-
-        star2.onclick = () => {
-            if (!star2.checked) {
-                console.log("clicked")
-                star2.checked = false
-                starClicked--
-            } else if (starClicked < 2) {
-                starClicked = 2
-                star2.checked = true
-                star1.checked = true
-
-            } else {
-                star2.checked = true;
-                star1.checked = true
-                starClicked++
-            }
-            getRating()
-
-        }
-
-
-        star3.onclick = () => {
-            if (!star3.checked) {
-                console.log("clicked")
-                star3.checked = false
-                starClicked--
-            } else if (starClicked < 3) {
-                starClicked = 3
-                star3.checked = true
-                star2.checked = true
-                star1.checked = true
-
-            } else {
-                star3.checked = true;
-                star2.checked = true;
-                star1.checked = true
-                starClicked++
-
-            }
-            getRating()
-
-        }
-
-
-
-        star4.onclick = () => {
-            if (!star4.checked) {
-                star4.checked = false;
-                starClicked--
-            } else if (starClicked < 4) {
-                starClicked = 4
-                star4.checked = true
-                star3.checked = true
-                star2.checked = true
-                star1.checked = true
-
-            } else {
-                star4.checked = true
-                star3.checked = true
-                star2.checked = true
-                star1.checked = true
-                starClicked++
-            }
-            getRating()
-        }
-
-
-        star5.onclick = () => {
-            if (!star5.checked) {
-                star5.checked = false;
-                starClicked--
-            } else if (starClicked < 5) {
-
-                star5.checked = true
-                star4.checked = true
-                star3.checked = true
-                star2.checked = true
-                star1.checked = true
-                starClicked = 5
-
-            } else {
-                star5.checked = true
-                star4.checked = true
-                star3.checked = true
-                star2.checked = true
-                star1.checked = true
-                starClicked++
-            }
-            getRating()
-        }
-
-        let rating = document.createElement("p")
-        starContainer.appendChild(rating)
-        rating.classList.add("rating")
-
-
-
-
-        function getRating() {
-            rating.innerHTML = `${starClicked}/5`
-        }
-        this.rating = `${starClicked}/5`
 
     }
+    // deleteItem() {
+    //     this.container.removeChild(this.newItem)
+
+    // }
 
 }
+
 let itemArray = []
 
 function add() {
 
-
+    let rating = ratingContainer.value;
     let selectedPerson = selectedPersonContainer.value
     let selectedMovie = movieContainer.value
     itemArray.push(new ListItem(listContainer, date, selectedPerson, selectedMovie, rating, false))
     clearInput()
-
-
-
 }
+
 function clearInput() {
     movieContainer.value = ""
-    starClicked = 0
 }
-
 
 function startApp() {
 
+    let storedDate = localStorage.getItem('date')
+    storedDate = storedDate.split(" |@! ")
+    storedDate = storedDate.join(" <br><br> ")
+
+    console.log(storedDate)
+    // storedDate.map((item) => {
+    //     console.log(item)
+    //     currentStoredDate.push(item)
+    // })
+    // for (let i = 0; i < storedDate.length; i++) {
+    //     currentStoredDate = storedDate[i];
+    //     console.log(currentStoredDate)
+    // }
 
 
-    let storedData = localStorage.getItem("data")
-    console.log(storedData)
+    let storedPerson = localStorage.getItem('person')
+    storedPerson = storedPerson.split(" |@! ")
+    storedPerson = storedPerson.join(" <br><br> ")
 
-    storedData = JSON.parse(storedData)
-    console.log(storedData)
-    storedData.map((data) => {
-        console.log(data)
-        //STUCK HERE - I CAN SEE THE DATA I WANT IN LOCAL STORAGE, JUST DON"T KNOW HOW TO ADD IT TO THE new LISTITEM)
+    // storedPerson.map((item) => {
+    //     console.log(item)
+    //     currentStoredPerson.push(item)
+    // })
+    // console.log(currentStoredPerson)
 
-        new ListItem(listContainer, true)
+
+    let storedMovie = localStorage.getItem("movie")
+    storedMovie = storedMovie.split(" |@! ")
+    storedMovie = storedMovie.join(" <br><br> ")
+
+    console.log(storedMovie)
+    // storedMovie.map((item) => {
+    //     console.log(item)
+    //     currentStoredMovie.push(item)
+
+    // })
+    // console.log(currentStoredMovie)
+
+    // for (let i = 0; i < storedMovie.length; i++) {
+    //     currentStoredMovie = storedMovie[i]
+    //     console.log(currentStoredMovie)
+
+
+    let storedRating = localStorage.getItem("rating")
+
+    storedRating = storedRating.split(" |@! ")
+    console.log(storedRating)
+
+    storedRating = storedRating.join(" <br><br> ")
+
+
+
+
+    newItemArray.push(new ListItem(listContainer, storedDate, storedPerson, storedMovie, storedRating, true))
+    // newItemArray.push(new ListItem(listContainer, currentStoredDate, currentStoredPerson, currentStoredMovie, currentStoredRating, true))
+}
+
+
+let movieData1 = []
+let movieData2 = []
+let allMovieData = []
+
+async function getMovies() {
+
+    let response = await fetch("https://api.themoviedb.org/3/discover/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%2C%2010751&with_keywords=marvel%2C%20dc%2C%20disney%2C%20superhero%2C%20spiderman%2C%20comic%2C%20avengers%2C%20pixar&with_watch_monetization_types=flatrate");
+    let data = await response.json();
+    console.log(data)
+    let movieData = data.results
+    console.log(movieData)
+    let indivMovieData = movieData.map((item) => {
+        console.log(item)
+        allMovieData.push(item)
     })
+    getMovies2()
+
+}
+
+async function getMovies2() {
+    let response = await fetch("https://api.themoviedb.org/3/discover/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_genres=16%2C%2010751&with_keywords=marvel%2C%20dc%2C%20disney%2C%20superhero%2C%20spiderman%2C%20comic%2C%20avengers%2C%20pixar&with_watch_monetization_types=flatrate")
+    let data = await response.json();
+    console.log(data)
+    let movieData = data.results
+    let indivMovieData = movieData.map((item) => {
+        allMovieData.push(item)
+    })
+    showMovieData()
+}
+
+
+console.log(allMovieData)
+
+function showMovieData() {
+    console.log(allMovieData)
+    movieListContainer.innerHTML = ""
+    shuffle(allMovieData)
+
+    let movieData = allMovieData.slice(0, 4)
+
+    movieData.map((item) => {
+        const title = item.title
+        const id = item.id
+        const overview = item.overview
+        const image = item.backdrop_path
+        const releaseDate = item.release_date
+        const genreArray = item.genre_ids
 
 
 
+        const newMovie = document.createElement("div")
+        movieListContainer.appendChild(newMovie)
+        newMovie.classList.add("newMovie")
+        // newMovie.classList.add("col")
+        const imgDiv = document.createElement("div")
+        newMovie.appendChild(imgDiv)
+        imgDiv.classList.add("imgDiv")
 
+        const movieImg = document.createElement("img")
+        movieImg.src = `https://www.themoviedb.org/t/p/w220_and_h330_face/${image}`
+        imgDiv.appendChild(movieImg)
+        movieImg.classList.add("movieImg")
+        // movieImg.classList.add("col")
 
+        const movieDataContainer = document.createElement("div")
+        movieDataContainer.classList.add("movieDataContainer")
+        newMovie.appendChild(movieDataContainer)
 
+        const movieTitle = document.createElement("h3")
+        movieTitle.innerHTML = `${title}`
+        movieDataContainer.appendChild(movieTitle)
 
+        const movieReleaseDate = document.createElement("p")
+        movieReleaseDate.innerHTML = `${releaseDate}`
+        movieDataContainer.appendChild(movieReleaseDate)
+        movieReleaseDate.classList.add("releaseDate")
+
+        // const movie
+
+        const movieOverview = document.createElement("p")
+        movieOverview.innerHTML = `${overview}`
+        movieDataContainer.appendChild(movieOverview)
+    })
 
 }
 
 
+
+
+
+
+
+
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+    }
+    return array
+}
