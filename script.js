@@ -3,6 +3,7 @@ const selectedPersonContainer = document.querySelector(".form-select")
 const movieContainer = document.querySelector(".movie-selection")
 const ratingContainer = document.getElementById("rangeOutputId")
 const movieListContainer = document.querySelector(".movie-container")
+const api_url = "https://api.themoviedb.org/3/discover/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%2C%2010751&with_keywords=marvel%2C%20dc%2C%20spiderman%2C%20disney%2C%20comic%2C%20superhero%2C%20pixar%2C%20avengers&with_watch_monetization_types=flatrate"
 
 let date
 let starClicked = 0
@@ -119,6 +120,27 @@ function clearInput() {
     movieContainer.value = ""
 }
 
+
+// const movieSearch = allMovieData.map((movie) => {
+
+
+//     if (!newSearchText) {
+//         movie.hasMatch = true
+//         return movie;
+//     } else {
+//         let movieTitle = movie.title.toLowerCase()
+//         let movieOverview = movie.overview.toLowerCase()
+
+//         const titleMatch = movieTitle.includes(newSearchText)
+//         const overviewMatch = movieOverview.includes(newSearchText)
+//         const hasMatch = titleMatch || overviewMatch
+//         movie.doesMatch
+//         movie
+//     }
+// }
+// })
+// }
+
 function startApp() {
 
     let storedDate = localStorage.getItem('date')
@@ -179,88 +201,106 @@ function startApp() {
 }
 
 
-let movieData1 = []
-let movieData2 = []
-let allMovieData = []
 
-async function getMovies() {
+let allMovieData
 
-    let response = await fetch("https://api.themoviedb.org/3/discover/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=16%2C%2010751&with_keywords=marvel%2C%20dc%2C%20disney%2C%20superhero%2C%20spiderman%2C%20comic%2C%20avengers%2C%20pixar&with_watch_monetization_types=flatrate");
+
+function getMovies() {
+    getMoviesFromAPI(api_url)
+}
+async function getMoviesFromAPI(url) {
+
+    let response = await fetch(url);
     let data = await response.json();
     console.log(data)
-    let movieData = data.results
-    console.log(movieData)
-    let indivMovieData = movieData.map((item) => {
-        console.log(item)
-        allMovieData.push(item)
-    })
-    getMovies2()
+    allMovieData = data.results
+
+
+    showMovieData(allMovieData)
+
 
 }
 
-async function getMovies2() {
-    let response = await fetch("https://api.themoviedb.org/3/discover/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_genres=16%2C%2010751&with_keywords=marvel%2C%20dc%2C%20disney%2C%20superhero%2C%20spiderman%2C%20comic%2C%20avengers%2C%20pixar&with_watch_monetization_types=flatrate")
-    let data = await response.json();
-    console.log(data)
-    let movieData = data.results
-    let indivMovieData = movieData.map((item) => {
-        allMovieData.push(item)
-    })
-    showMovieData()
-}
 
+
+function searchText() {
+
+    const searchText = movieContainer.value
+    const newSearchText = searchText.toLowerCase()
+    movieListContainer.innerHTML = ""
+    if (searchText !== "") {
+        getMoviesFromAPI("https://api.themoviedb.org/3/search/movie?api_key=6af57a5cf47289dd6788043a2cc7d90d&query=" + `${newSearchText}`)
+    } else {
+        getMoviesFromAPI(api_url)
+    }
+}
 
 console.log(allMovieData)
 
-function showMovieData() {
+function showMovieData(allMovieData) {
     console.log(allMovieData)
     movieListContainer.innerHTML = ""
     shuffle(allMovieData)
 
     let movieData = allMovieData.slice(0, 4)
+    let uniqueMovies = [...new Set(movieData)]
 
-    movieData.map((item) => {
+    uniqueMovies.map((item) => {
         const title = item.title
         const id = item.id
         const overview = item.overview
         const image = item.backdrop_path
         const releaseDate = item.release_date
         const genreArray = item.genre_ids
+        let kidFriendly = false
+        const genre = genreArray.map((item) => {
+            console.log(item)
+            if (item === 10751) {
+                kidFriendly = true
+            }
 
 
+        })
 
-        const newMovie = document.createElement("div")
-        movieListContainer.appendChild(newMovie)
-        newMovie.classList.add("newMovie")
-        // newMovie.classList.add("col")
-        const imgDiv = document.createElement("div")
-        newMovie.appendChild(imgDiv)
-        imgDiv.classList.add("imgDiv")
 
-        const movieImg = document.createElement("img")
-        movieImg.src = `https://www.themoviedb.org/t/p/w220_and_h330_face/${image}`
-        imgDiv.appendChild(movieImg)
-        movieImg.classList.add("movieImg")
-        // movieImg.classList.add("col")
+        // let familyMovies = uniqueMovies.filter()
 
-        const movieDataContainer = document.createElement("div")
-        movieDataContainer.classList.add("movieDataContainer")
-        newMovie.appendChild(movieDataContainer)
 
-        const movieTitle = document.createElement("h3")
-        movieTitle.innerHTML = `${title}`
-        movieDataContainer.appendChild(movieTitle)
+        if (kidFriendly && image) {
+            const newMovie = document.createElement("div")
+            movieListContainer.appendChild(newMovie)
 
-        const movieReleaseDate = document.createElement("p")
-        movieReleaseDate.innerHTML = `${releaseDate}`
-        movieDataContainer.appendChild(movieReleaseDate)
-        movieReleaseDate.classList.add("releaseDate")
+            newMovie.classList.add("newMovie")
+            // newMovie.classList.add("col")
+            const imgDiv = document.createElement("div")
+            newMovie.appendChild(imgDiv)
+            imgDiv.classList.add("imgDiv")
 
-        // const movie
+            const movieImg = document.createElement("img")
+            movieImg.src = `https://www.themoviedb.org/t/p/w220_and_h330_face/${image}`
+            imgDiv.appendChild(movieImg)
+            movieImg.classList.add("movieImg")
+            // movieImg.classList.add("col")
 
-        const movieOverview = document.createElement("p")
-        movieOverview.innerHTML = `${overview}`
-        movieDataContainer.appendChild(movieOverview)
+            const movieDataContainer = document.createElement("div")
+            movieDataContainer.classList.add("movieDataContainer")
+            newMovie.appendChild(movieDataContainer)
+
+            const movieTitle = document.createElement("h3")
+            movieTitle.innerHTML = `${title}`
+            movieDataContainer.appendChild(movieTitle)
+
+            const movieReleaseDate = document.createElement("p")
+            movieReleaseDate.innerHTML = `${releaseDate}`
+            movieDataContainer.appendChild(movieReleaseDate)
+            movieReleaseDate.classList.add("releaseDate")
+
+            // const movie
+
+            const movieOverview = document.createElement("p")
+            movieOverview.innerHTML = `${overview}`
+            movieDataContainer.appendChild(movieOverview)
+        }
     })
 
 }

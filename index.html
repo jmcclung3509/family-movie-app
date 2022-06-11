@@ -32,9 +32,10 @@
                     </div>
 
                     <div class="col">
-                        <input id="floatingInput" type="text" class="movie-selection" placeholder="Movie Title">
+                        <input id="floatingInput" type="text" class="movie-selection" placeholder="Movie Title"
+                            oninput="searchText()"">
                     </div>
-                    <div class="col-2 rating-div">
+                    <div class=" col-2 rating-div">
                         <label for="customRange1" class="form-label"> Rating </label>
                         <input type="range" class="form-range" min="0" max="5" id="customRange1"
                             oninput="rangeOutputId.value = customRange1.value">
@@ -56,7 +57,7 @@
 
 
                     <h3 class="col">Date</h3>
-                    <h3 class="col">Who Picked</h3>
+                    <h3 class="col">Who's Pick</h3>
                     <h3 class="col">Movie</h3>
                     <h3 class="col">Rating</h3>
                     <!-- <h3 class="col-1"></h3> -->
